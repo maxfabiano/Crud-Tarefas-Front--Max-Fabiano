@@ -12,7 +12,9 @@ export default function Login() {
         event.preventDefault();
         try {
             const response = await api.post('/auth/login', { email, password });
-            localStorage.setItem('token', response.data.token);
+            console.log(response.data.object);
+            localStorage.setItem('token', response.data.object.token);
+            localStorage.setItem('id', response.data.object.sub);
             navigate('/tasks');
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {

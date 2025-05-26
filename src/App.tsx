@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
-import Tasks from './pages/Tasks';
+import Tasks from './pages/Clientes.tsx';
 import Home from "./pages/Home";
 
 function App() {

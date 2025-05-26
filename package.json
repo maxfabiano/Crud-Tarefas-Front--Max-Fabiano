@@ -13,7 +13,7 @@
     "@tailwindcss/vite": "^4.0.11",
     "animate.css": "^4.1.1",
     "axios": "^1.8.2",
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^5.3.6",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
