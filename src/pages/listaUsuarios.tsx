@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Cliente, CreateClienteFormData, FilterClienteQueryParams } from '../Interfaces/cliente.interface';
 import {useEffect, useState} from "react";
 
-export default function Clientes() {
+export default function listaUsuarios() {
     const [clientes, setClientes] = useState<Cliente[]>([]);
     const [filteredClientes, setFilteredClientes] = useState<Cliente[]>([]);
     const [filterParams, setFilterParams] = useState<FilterClienteQueryParams>({}); // Estado para os filtros
@@ -131,8 +131,6 @@ export default function Clientes() {
                 <h2 className="text-3xl font-semibold text-blue-600 text-center mb-8 animate__animated animate__fadeInDown">
                     Lista de Usuarios
                 </h2>
-
-                <ClienteForm onClienteAdded={addCliente} /> {}
 
                 {/* Filtros de pesquisa */}
                 <div className="mb-4 p-4 border rounded-lg shadow-sm bg-gray-50">

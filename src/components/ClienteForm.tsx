@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CreateClienteFormData } from '../Interfaces/cliente.interface'; // Ajuste o caminho conforme sua estrutura
+import { CreateClienteFormData } from '../Interfaces/cliente.interface';
 import { fetchAddressByCep } from '../services/viacep.service';
 
 interface ClienteFormProps {
@@ -10,8 +10,10 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
     const id = localStorage.getItem('id');
     const [formData, setFormData] = useState<CreateClienteFormData>({
         idUsuario: Number(id),
-        Codigo: '',
+        Codigo: '12132132',
         Nome: '',
+        email: '',
+        password: '',
         CPF_CNPJ: '',
         CEP: '',
         Logradouro: '',
@@ -40,9 +42,8 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
     }
 
     const handleCepBlur = async () => {
-            const cep = String(formData.CEP); // Converte para string para a função do ViaCEP
+            const cep = String(formData.CEP);
 
-            // Só busca se o CEP tiver 8 dígitos e não estiver vazio
             if (cep.replace(/\D/g, '').length === 8 && cep !== '0') {
                 const addressData = await fetchAddressByCep(cep);
 
@@ -53,12 +54,10 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         Bairro: addressData.bairro || '',
                         Cidade: addressData.localidade || '',
                         UF: addressData.uf || '',
-                        // Complemento é opcional e pode vir vazio
                         Complemento: addressData.complemento || '',
                     }));
                     setIsAddressAutofilled(true); // Marca que o endereço foi preenchido automaticamente
                 } else {
-                    // Se o CEP for inválido ou não encontrado, limpe os campos de endereço
                     setFormData(prevData => ({
                         ...prevData,
                         Logradouro: '',
@@ -83,11 +82,12 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
 
             onClienteAdded(formData);
 
-            // Opcional: Limpar o formulário após o envio
             setFormData({
                 idUsuario: 1,
                 Codigo: '',
                 Nome: '',
+                email: '',
+                password: '',
                 CPF_CNPJ: '',
                 CEP: '',
                 Logradouro: '',
@@ -101,16 +101,42 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                 LimiteCredito: 0,
                 Validade: new Date().toISOString().split('T')[0],
             });
-            setIsAddressAutofilled(false); // Resetar o status de autofill
+            setIsAddressAutofilled(false);
         }
 
         return (
             <form onSubmit={handleSubmit} className="p-4 border rounded-lg shadow-md bg-white">
-                <h2 className="h4 text-primary text-center mb-4">Cadastro de Cliente</h2>
+                <h2 className="h4 text-primary text-center mb-4">Cadastro de Usuarios Regulares</h2>
 
                 <div className="row g-3">
 
-                    {/* idUsuario */}
+                    {}
+                    <div className="col-md-6">
+                                            <label htmlFor="email" className="form-label">Email do Usuário:</label>
+                                            <input
+                                                disabled={false}
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                                className="form-control"
+                                            />
+                                        </div>
+                    <div className="col-md-6">
+                                            <label htmlFor="password" className="form-label">Senha do Usuário:</label>
+                                            <input
+                                                disabled={false}
+                                                type="password"
+                                                id="password"
+                                                name="password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                required
+                                                className="form-control"
+                                            />
+                                        </div>
                     <div className="col-md-6">
                         <label htmlFor="idUsuario" className="form-label">ID do Usuário:</label>
                         <input
@@ -125,10 +151,11 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Código */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="Codigo" className="form-label">Código:</label>
                         <input
+                            disabled={true}
                             type="text"
                             id="Codigo"
                             name="Codigo"
@@ -141,7 +168,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Nome */}
+                    {}
                     <div className="col-12">
                         <label htmlFor="Nome" className="form-label">Nome:</label>
                         <input
@@ -157,7 +184,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* CPF/CNPJ */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="CPF_CNPJ" className="form-label">CPF/CNPJ:</label>
                         <input
@@ -167,7 +194,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                             placeholder="CPF ou CNPJ"
                             value={formData.CPF_CNPJ}
                             onChange={handleChange}
-                            maxLength={20}
+                            maxLength={40}
                             required
                             className="form-control"
                         />
@@ -190,7 +217,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Logradouro - Pode ser desabilitado ou marcado como readonly após autofill */}
+                    {}
                     <div className="col-12">
                         <label htmlFor="Logradouro" className="form-label">Logradouro:</label>
                         <input
@@ -203,11 +230,11 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                             maxLength={100}
                             required
                             className="form-control"
-                            readOnly={isAddressAutofilled} // Torna o campo somente leitura após autofill
+                            readOnly={isAddressAutofilled}
                         />
                     </div>
 
-                    {/* Endereço */}
+                    {}
                     <div className="col-md-8">
                         <label htmlFor="Endereco" className="form-label">Endereço:</label>
                         <input
@@ -239,7 +266,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Bairro - Pode ser desabilitado ou marcado como readonly após autofill */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="Bairro" className="form-label">Bairro:</label>
                         <input
@@ -256,7 +283,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Cidade - Pode ser desabilitado ou marcado como readonly após autofill */}
+                    {}
                     <div className="col-md-4">
                         <label htmlFor="Cidade" className="form-label">Cidade:</label>
                         <input
@@ -273,7 +300,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* UF - Pode ser desabilitado ou marcado como readonly após autofill */}
+                    {}
                     <div className="col-md-2">
                         <label htmlFor="UF" className="form-label">UF:</label>
                         <input
@@ -290,7 +317,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Complemento */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="Complemento" className="form-label">Complemento (Opcional):</label>
                         <input
@@ -305,7 +332,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Telefone */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="Fone" className="form-label">Telefone (Opcional):</label>
                         <input
@@ -320,7 +347,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Limite de Crédito */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="LimiteCredito" className="form-label">Limite de Crédito:</label>
                         <input
@@ -336,7 +363,7 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Validade */}
+                    {}
                     <div className="col-md-6">
                         <label htmlFor="Validade" className="form-label">Validade:</label>
                         <input
@@ -350,13 +377,13 @@ export default function ClienteForm({ onClienteAdded }: ClienteFormProps) {
                         />
                     </div>
 
-                    {/* Botão de Submeter */}
+                    {}
                     <div className="col-12 mt-4">
                         <button
                             type="submit"
                             className="btn btn-success w-100"
                         >
-                            Cadastrar Cliente
+                            Cadastrar Usuario
                         </button>
                     </div>
                 </div>

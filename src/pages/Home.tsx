@@ -5,7 +5,7 @@ export default function Home() {
         <div className="flex justify-center items-center h-screen bg-gray-100">
             <div className="max-w-sm p-8 rounded-xl shadow-md border border-gray-300 mx-auto bg-white animate__animated animate__fadeIn">
                 <h1 className="text-3xl font-bold text-blue-600 mb-6 animate__animated animate__slideInDown">
-                    Bem-vindo ao Cadastro De Clientes
+                    Bem-vindo ao Cadastro De Usuarios
                 </h1>
                 <p className="mb-6 text-gray-800 animate__animated animate__fadeInUp">
                     Faça login ou cadastre-se para começar.

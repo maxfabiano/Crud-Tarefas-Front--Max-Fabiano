@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { api } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import 'animate.css';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -14,11 +15,16 @@ export default function Login() {
             const response = await api.post('/auth/login', { email, password });
             console.log(response.data.object);
             localStorage.setItem('token', response.data.object.token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', response.data.object.role);
             localStorage.setItem('id', response.data.object.sub);
-            navigate('/tasks');
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            if(response.data.object.role == "ADMIN"){
+                navigate('/perfil');
+            }else {
+                navigate('/tasks');
+            }
         } catch (error) {
-            alert('Erro ao fazer login');
+            alert("Usuario ou senha invalido");
         }
     }
 
@@ -55,6 +61,16 @@ export default function Login() {
                             className="w-full py-3 px-6 rounded-xl bg-[#764ba2] text-white font-semibold hover:bg-[#667eea] transition duration-300"
                         >
                             Entrar
+                        </button>
+                        <button
+                                                    className=" w-full py-3 px-6 rounded-xl bg-[#ffffff] text-white font-semibold hover:bg-[#667eea] transition duration-300"
+                                                >
+                        <Link
+                                               to="/register"
+                                              className=""
+                                              >
+                                                 Cadastrar Usuario
+                                            </Link>
                         </button>
                     </div>
                 </form>

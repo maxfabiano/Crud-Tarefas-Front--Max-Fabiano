@@ -2,6 +2,8 @@ export interface CreateClienteFormData {
   idUsuario: number;
   Codigo: string;
   Nome: string;
+  password: string;
+  email: string;
   CPF_CNPJ: string;
   CEP: string;
   Logradouro: string;
@@ -32,7 +34,7 @@ export interface Cliente {
   Complemento?: string;
   Fone?: string;
   LimiteCredito: number;
-  Validade: string; // Vem como string ISO de data
+  Validade: string;
 }
 export interface FilterClienteQueryParams {
   Codigo?: string;

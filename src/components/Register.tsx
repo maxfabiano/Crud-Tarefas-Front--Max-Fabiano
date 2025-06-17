@@ -5,17 +5,18 @@ import 'animate.css';
 
 export default function Register() {
     const [email, setEmail] = useState('');
+    const [role] = "ADMIN";
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     async function handleRegister(event: React.FormEvent) {
         event.preventDefault();
         try {
-            await api.post('/auth/register', { email, password });
-            alert('Cadastro realizado com sucesso!');
+            const result = await api.post('/auth/register', { email, password,"role":"ADMIN" });
+            alert(result.data.message);
             navigate('/login');
         } catch (error) {
-            alert('Erro ao cadastrar');
+            alert(error);
         }
     }
 
@@ -23,11 +24,11 @@ export default function Register() {
         <div className="flex justify-center items-center h-screen bg-gray-100">
             <div className="max-w-md p-8 rounded-xl shadow-md border border-gray-300 bg-white animate__animated animate__fadeIn">
                 <h2 className="text-3xl font-bold text-green-600 text-center mb-6 animate__animated animate__slideInDown">
-                    Cadastro
+                    Cadastrar Novo Usuario
                 </h2>
                 <form onSubmit={handleRegister} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700">E-mail</label>
+                        <label className="block text-sm font-semibold text-gray-700">E-mail Ex (abcd@abcd.com.br)</label>
                         <input
                             type="email"
                             placeholder="Digite seu e-mail"

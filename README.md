@@ -1,61 +1,60 @@
-Comandos para rodar o projeto
+Guia Rápido: Configuração e Execução do Frontend
+Este guia é para você configurar e rodar o projeto frontend rapidinho.
+Este prjeto usa Vite
+🚀 Primeiros Passos
+Antes de tudo, tenha Node.js e npm (ou Yarn/pnpm, se preferir) instalados.
+
+Acesse a Pasta do Projeto:
+Abra seu terminal e navegue até a pasta raiz do projeto frontend.
+
+Instale as Dependências:
+
+Bash
+
 npm install
-vite install
-vite run
-este projeto usa vite
+⚙️ Configuração da Conexão com o Backend
+O frontend precisa saber onde o backend está rodando para se comunicar.
 
+1. Verifique a URL da API
+   A URL base do seu backend está configurada no arquivo:
 
-# React + TypeScript + Vite
+src/services/api.ts
+Abra este arquivo e certifique-se de que a variável API_URL aponte para o endereço e porta corretos do seu backend. Por exemplo:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TypeScript
 
-Currently, two official plugins are available:
+// src/services/api.ts
+import axios from 'axios';
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+// Certifique-se de que esta URL corresponde ao seu backend
+const API_URL = 'http://localhost:3005';
 
-## Expanding the ESLint configuration
+export const api = axios.create({
+baseURL: API_URL,
+});
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+api.interceptors.request.use((config) => {
+const token = localStorage.getItem('token');
+if (token) {
+config.headers.Authorization = `Bearer ${token}`;
+}
+return config;
+});
+▶️ Rodando o Frontend
+Com as dependências instaladas e a URL da API verificada, você pode iniciar o servidor de desenvolvimento do frontend usando o Vite.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Iniciar o Servidor de Desenvolvimento:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Bash
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm run dev
+Este comando, configurado no package.json, geralmente executa o vite ou vite dev. Ele inicia o servidor em http://localhost:5173 (ou outra porta disponível).
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Acessar de Outros Dispositivos na Rede Local (--host):
+Se você precisar acessar o frontend de outros dispositivos na mesma rede local (como seu celular), use:
+
+Bash
+
+npm run dev -- --host 0.0.0.0
+Observação: O -- antes de --host é necessário para passar o argumento host diretamente para o comando vite que npm run dev executa.
+Este comando faz com que o servidor do Vite seja acessível por qualquer interface de rede, não apenas localhost. Após executá-lo, o terminal geralmente mostrará o endereço IP da sua máquina na rede local para você acessar.
