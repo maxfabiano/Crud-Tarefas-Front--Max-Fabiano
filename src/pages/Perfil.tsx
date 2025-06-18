@@ -1,6 +1,5 @@
 import { api } from '../services/api';
 import 'animate.css';
-import ClienteForm from '../components/ClienteForm';
 import Sidebar from '../components/Sidebar';
 import ClienteProfile from '../components/ClienteProfile'; // Importe o novo componente
 import { useNavigate, useParams } from 'react-router-dom'; // Importe useParams
@@ -12,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Estilos do toast
 export default function Perfil() {
     const [clientes, setClientes] = useState<Cliente[]>([]);
     const [filteredClientes, setFilteredClientes] = useState<Cliente[]>([]);
-    const [filterParams, setFilterParams] = useState<FilterClienteQueryParams>({});
+    const [filterParams] = useState<FilterClienteQueryParams>({});
     const [selectedCliente, setSelectedCliente] = useState<Cliente | null>(null); // Novo estado para o cliente selecionado
 
     const navigate = useNavigate();

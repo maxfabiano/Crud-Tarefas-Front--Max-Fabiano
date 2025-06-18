@@ -11,7 +11,6 @@ export default function Clientes() {
     const [filteredClientes, setFilteredClientes] = useState<Cliente[]>([]);
     const [filterParams, setFilterParams] = useState<FilterClienteQueryParams>({}); // Estado para os filtros
     const navigate = useNavigate();
-
     useEffect(() => {
         fetchClientes();
         if(localStorage.getItem('role') != 'ADMIN'){
@@ -124,8 +123,7 @@ export default function Clientes() {
     return (
         <div className="flex">
             <div className="w-1/4">
-                <Sidebar username={'User'} userEmail={localStorage.getItem('email') !=null?
-                localStorage.getItem('email'):"User@example.com"} /> {}
+                <Sidebar username={'User'} userEmail={""} /> {}
             </div>
             <div className="w-3/4 p-5">
                 <h2 className="text-3xl font-semibold text-blue-600 text-center mb-8 animate__animated animate__fadeInDown">
