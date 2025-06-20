@@ -1,15 +1,12 @@
-// src/pages/RegisterPage.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { RegisterDto } from '../types/auth';
-// Removido: import { Role } from '../types/common'; // Não será mais usado aqui
 
 const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // Removido: const [role, setRole] = useState<Role>(Role.ADMIN);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -19,7 +16,6 @@ const RegisterPage: React.FC = () => {
         setError(null);
         setSuccess(null);
         try {
-            // A role não é mais enviada do frontend, o backend a define
             const registerData: RegisterDto = { name, email, password };
             await api.post('/auth/register', registerData);
             setSuccess('Usuário registrado com sucesso! Redirecionando para o login...');

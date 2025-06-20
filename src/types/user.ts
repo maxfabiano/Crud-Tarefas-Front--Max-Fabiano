@@ -1,12 +1,11 @@
-// src/types/user.ts (Frontend)
-import { Role } from './common'; // Certifique-se que 'Role' é importado
+import { Role } from './common';
 
 export interface CreateUserDto {
     name: string;
     email: string;
     password: string;
-    role?: Role; // Role será USER, mas pode ser útil para tipagem
-    managerId: number; // O ID do admin que está criando o usuário
+    role?: Role;
+    managerId: number;
 }
 
 export interface UpdateUserDto {
@@ -22,8 +21,8 @@ export interface UserResponseDto {
     name: string;
     email: string;
     role: Role;
-    createdAt: string; // Use string para datas vindas da API
-    updatedAt: string; // Use string para datas vindas da API
-    lastLoginAt?: string | null; // Use string para datas vindas da API
-    managerId?: number | null; // Adicionado
+    createdAt: string;
+    updatedAt: string;
+    lastLoginAt?: string | null;
+    managerId?: number | null;
 }

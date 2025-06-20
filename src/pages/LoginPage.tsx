@@ -1,4 +1,3 @@
-// src/pages/LoginPage.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
@@ -11,7 +10,7 @@ const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
-    const { login } = useAuth(); // Usar o contexto de autenticação
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -19,13 +18,12 @@ const LoginPage: React.FC = () => {
         try {
             const loginData: LoginDto = { email, password };
             const response = await api.post<LoginResponseDto>('/auth/login', loginData);
-            login(response.data); // Salva token e user no contexto
+            login(response.data);
 
-            // Redirecionamento após login bem-sucedido
             if (response.data.role === Role.ADMIN) {
-                navigate('/users'); // Administrador vai para a lista de usuários
+                navigate('/users');
             } else {
-                navigate('/profile'); // Usuário regular vai para o perfil
+                navigate('/profile');
             }
         } catch (err: any) {
             setError(err.response?.data?.message || 'Erro ao fazer login.');
@@ -60,7 +58,7 @@ const LoginPage: React.FC = () => {
             <p>
                 Não tem uma conta? <a href="/register">Cadastre-se</a>
             </p>
-            {/* Diferencial Opcional: Botões de login com Google/Microsoft aqui */}
+            {}
         </div>
     );
 };

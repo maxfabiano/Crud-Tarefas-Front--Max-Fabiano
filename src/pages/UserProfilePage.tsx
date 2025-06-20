@@ -1,4 +1,3 @@
-// src/pages/UserProfilePage.tsx
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -7,12 +6,12 @@ import { Role } from '../types/common.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 
 interface UserProfilePageProps {
-    isEditMode?: boolean; // Prop para indicar se está no modo de edição por um admin
+    isEditMode?: boolean;
 }
 
 const UserProfilePage: React.FC<UserProfilePageProps> = ({ isEditMode = false }) => {
-    const { user: loggedInUser, logout } = useAuth(); // O usuário logado
-    const { id } = useParams<{ id?: string }>(); // ID do usuário a ser editado (se for admin)
+    const { user: loggedInUser, logout } = useAuth();
+    const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
 
     const userIdToFetch = isEditMode && id ? parseInt(id) : loggedInUser?.id;
@@ -37,8 +36,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ isEditMode = false })
                 setCurrentUser(response.data);
                 setFormData({
                     name: response.data.name,
-                    email: response.data.email, // Email geralmente não é editável por usuários comuns ou exige regras mais complexas
-                    role: response.data.role, // Admin pode editar roles
+                    email: response.data.email,
+                    role: response.data.role,
                     adminId: response.data.adminId || undefined,
                 });
             } catch (err: any) {
@@ -46,9 +45,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ isEditMode = false })
                 if (err.response?.status === 403) {
                     alert('Você não tem permissão para ver este perfil.');
                     if (loggedInUser?.role === Role.ADMIN) {
-                        navigate('/users'); // Admin volta para lista
+                        navigate('/users');
                     } else {
-                        navigate('/login'); // Usuário comum faz logout
+                        navigate('/login');
                     }
                 }
             } finally {
@@ -72,14 +71,12 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ isEditMode = false })
         try {
             const updatePayload: UpdateUserDto = {
                 name: formData.name,
-                password: formData.password || undefined, // Somente envia a senha se foi alterada
-                // Email e role só podem ser alterados por ADMIN ou com lógica específica
+                password: formData.password || undefined,
                 email: loggedInUser?.role === Role.ADMIN ? formData.email : currentUser?.email,
                 role: loggedInUser?.role === Role.ADMIN ? (formData.role as Role) : currentUser?.role,
                 adminId: loggedInUser?.role === Role.ADMIN ? (formData.adminId || null) : currentUser?.adminId,
             };
 
-            // Remover undefined/null para não enviar campos vazios que não foram alterados
             Object.keys(updatePayload).forEach(key => updatePayload[key as keyof UpdateUserDto] === undefined && delete updatePayload[key as keyof UpdateUserDto]);
 
 
@@ -88,8 +85,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ isEditMode = false })
             setIsEditing(false); // Sair do modo de edição
             alert('Perfil atualizado com sucesso!');
             if (loggedInUser?.id === userIdToFetch) {
-                // Se o próprio usuário atualizou o perfil, atualiza o contexto de autenticação também
-                logout(); // Força um logout para re-autenticar com o novo token/dados atualizados
+                logout();
                 navigate('/login');
             }
         } catch (err: any) {

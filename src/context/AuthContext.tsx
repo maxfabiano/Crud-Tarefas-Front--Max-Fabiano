@@ -1,6 +1,5 @@
-// src/context/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { LoginResponseDto } from '../types/auth'; // Definiremos isso em `src/types/auth.ts`
+import { LoginResponseDto } from '../types/auth';
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -15,10 +14,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<LoginResponseDto | null>(null);
-    const [loading, setLoading] = useState<boolean>(true); // Para gerenciar o carregamento inicial do token
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        // Ao carregar a aplicação, tenta recuperar o token e os dados do usuário do localStorage
         const storedToken = localStorage.getItem('accessToken');
         const storedUser = localStorage.getItem('user');
 
@@ -29,10 +27,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setUser(parsedUser);
             } catch (error) {
                 console.error('Failed to parse stored user data:', error);
-                logout(); // Limpa dados inválidos
+                logout();
             }
         }
-        setLoading(false); // Conclui o carregamento inicial
+        setLoading(false);
     }, []);
 
     const login = (userData: LoginResponseDto) => {

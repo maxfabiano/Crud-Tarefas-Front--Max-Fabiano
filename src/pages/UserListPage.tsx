@@ -12,14 +12,11 @@ const UserListPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
-    // Reativar estados para filtros e ordenação, com valores iniciais para seus próprios usuários
     const [filterRole, setFilterRole] = useState<Role>(Role.USER); // Padrão: USUÁRIO
     const [sortBy, setSortBy] = useState<SortBy | ''>('');
     const [order, setOrder] = useState<Order | ''>('');
-    // Adicionar um estado para o managerId que será filtrado
     const [selectedManagerId, setSelectedManagerId] = useState<number | ''>(''); // Para filtrar por outro admin
 
-    // Estados para o formulário de novo usuário
     const [newUserName, setNewUserName] = useState('');
     const [newUserEmail, setNewUserEmail] = useState('');
     const [newUserPassword, setNewUserPassword] = useState('');
@@ -34,12 +31,10 @@ const UserListPage: React.FC = () => {
         try {
             const params: { role?: Role; sortBy?: SortBy; order?: Order; managerId?: number } = {};
 
-            // AQUI: Adicione a lógica para construir os parâmetros da URL
             if (filterRole) params.role = filterRole;
             if (sortBy) params.sortBy = sortBy;
             if (order) params.order = order;
             if (selectedManagerId) params.managerId = selectedManagerId;
-            // Se selectedManagerId estiver vazio, o backend usará o ID do admin logado por padrão
 
             const response = await api.get<UserResponseDto[]>('/users', { params });
             setUsers(response.data);
@@ -59,11 +54,10 @@ const UserListPage: React.FC = () => {
 
     useEffect(() => {
         if (user && user.role === Role.ADMIN) {
-            // Se selectedManagerId ainda não foi definido (primeiro load), defina para o ID do admin logado
             if (selectedManagerId === '') {
                 setSelectedManagerId(user.id);
             }
-            fetchUsers(); // Chama fetchUsers apenas quando managerId ou outros filtros mudam
+            fetchUsers();
         } else if (!user) {
             navigate('/login');
         } else {
@@ -179,9 +173,8 @@ const UserListPage: React.FC = () => {
                     Filtrar por Papel:
                     <select value={filterRole} onChange={(e) => setFilterRole(e.target.value as Role)}>
                         <option value={Role.USER}>Usuário Regular</option>
-                        {/* Se você quiser permitir filtrar outros roles aqui, adicione.
-                            Mas a regra era para ADMINs verem APENAS seus usuários regulares. */}
-                        {/* <option value={Role.ADMIN}>Admin</option> */}
+                        {}
+                        {}
                     </select>
                 </label>
                 <label style={{ marginLeft: '10px' }}>
