@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { RegisterDto } from '../types/auth';
+import '../assets/styles/register.css';
 
 const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
@@ -21,50 +22,61 @@ const RegisterPage: React.FC = () => {
             setSuccess('Usuário registrado com sucesso! Redirecionando para o login...');
             setTimeout(() => navigate('/login'), 2000);
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Erro ao registrar usuário.');
+            setError(err.response?.data?.message || 'Erro ao registrar usuário. Tente novamente.');
         }
     };
 
     return (
-      <div>
-          <h2>Cadastro</h2>
-          <form onSubmit={handleSubmit}>
-              <div>
-                  <label>Nome Completo:</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-              </div>
-              <div>
-                  <label>Email:</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-              </div>
-              <div>
-                  <label>Senha:</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-              </div>
-              {/* Removido: Campo de seleção de Role */}
-              <button type="submit">Cadastrar</button>
-          </form>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {success && <p style={{ color: 'green' }}>{success}</p>}
-          <p>
-              Já tem uma conta? <a href="/login">Faça login</a>
-          </p>
-      </div>
+        <div className="register-page-container">
+            <div className="register-card">
+                <h2>Crie Sua Conta</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="fullName">Nome Completo:</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            className="form-control"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Senha:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="form-control"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn-register">
+                        Cadastrar
+                    </button>
+                </form>
+
+                {error && <p className="status-message error">{error}</p>}
+                {success && <p className="status-message success">{success}</p>}
+
+                <p className="login-link">
+                    Já tem uma conta? <a href="/login">Faça login</a>
+                </p>
+            </div>
+        </div>
     );
 };
 

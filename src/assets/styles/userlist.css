@@ -1,0 +1,375 @@
+
+.user-list-page-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar .logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar .logo-section img {
+    max-width: 100px;
+    border-radius: 50%;
+    border: 2px solid #3498db;
+}
+
+.sidebar .nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .nav-links li {
+    margin-bottom: 15px;
+}
+
+.sidebar .nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .nav-links a:hover {
+    background-color: #34495e;
+}
+
+.sidebar .nav-links a svg {
+    margin-right: 10px;
+}
+
+.sidebar .logout-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .logout-button:hover {
+    background-color: #c0392b;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.main-section {
+    padding: 30px;
+    flex-grow: 1;
+}
+
+.section-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.section-card h3 {
+    color: #34495e;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.form-add-user .form-group {
+    margin-bottom: 15px;
+}
+
+.form-add-user .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-add-user .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.form-add-user .btn-primary {
+    margin-top: 20px;
+    width: auto;
+    padding: 10px 25px;
+    font-size: 1rem;
+}
+
+.filters-section .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.filters-section .filter-item {
+    flex-grow: 1;
+    min-width: 150px;
+}
+
+.filters-section .filter-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.filters-section .filter-item select,
+.filters-section .filter-item input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    background-color: #fdfdfd;
+}
+
+.filters-section .btn-apply-filters {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.filters-section .btn-apply-filters:hover {
+    background-color: #218838;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.users-table thead {
+    background-color: #e9ecef;
+}
+
+.users-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.users-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.users-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.users-table .action-buttons button {
+    padding: 6px 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+}
+
+.users-table .action-buttons .edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.users-table .action-buttons .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.users-table .action-buttons .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.users-table .action-buttons .delete-btn:hover {
+    background-color: #c82333;
+}
+
+.status-message {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.status-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+        padding: 15px 10px;
+    }
+    .sidebar .logo-section img {
+        max-width: 60px;
+    }
+    .sidebar .nav-links a {
+        font-size: 0.9rem;
+        justify-content: center;
+        padding: 8px;
+    }
+    .sidebar .nav-links a svg {
+        margin-right: 0;
+    }
+    .sidebar .nav-links a span {
+        display: none;
+    }
+    .main-content {
+        padding: 15px;
+    }
+    .main-header {
+        padding: 15px 20px;
+    }
+    .main-section {
+        padding: 20px;
+    }
+    .filters-section .filter-group {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .filters-section .filter-item {
+        min-width: unset;
+        width: 100%;
+    }
+    .users-table th, .users-table td {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+    .users-table .action-buttons button {
+        padding: 4px 8px;
+        margin-right: 5px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-list-page-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar .logo-section {
+        display: none;
+    }
+    .sidebar .nav-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .sidebar .nav-links li {
+        margin-bottom: 0;
+    }
+    .sidebar .nav-links a {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+        flex-direction: column;
+    }
+    .sidebar .nav-links a svg {
+        margin-bottom: 5px;
+    }
+    .sidebar .logout-button {
+        display: none;
+    }
+    .main-header {
+        padding: 10px 15px;
+        text-align: center;
+        flex-direction: column;
+    }
+    .main-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    .main-section {
+        padding: 15px;
+    }
+    .section-card {
+        padding: 20px;
+    }
+    .section-card h3 {
+        font-size: 1.3rem;
+        padding-bottom: 10px;
+    }
+}
