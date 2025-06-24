@@ -1,4 +1,6 @@
-npm install
+npm install // 
+
+
 Vite --host  //use este comando para rodar a aplicação
 
 
