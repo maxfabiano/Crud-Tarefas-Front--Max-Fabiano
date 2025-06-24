@@ -1,5 +1,5 @@
 npm install
-Vite --host
+Vite --host  //use este comando para rodar a aplicação
 
 
 Guia Rápido: Configuração e Execução do Frontend
