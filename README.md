@@ -1,3 +1,7 @@
+npm install
+Vite --host
+
+
 Guia Rápido: Configuração e Execução do Frontend
 Este guia é para você configurar e rodar o projeto frontend rapidinho.
 Este prjeto usa Vite
